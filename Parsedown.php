@@ -75,6 +75,15 @@ class Parsedown
         return $this;
     }
 
+    private $imagePath = '.';
+
+    function setImagePath($imagePath)
+    {
+        $this->imagePath = $imagePath;
+
+        return true;
+    }
+
     #
     # Lines
     #
@@ -687,13 +696,6 @@ class Parsedown
             }
         }
 
-        if (isset($Block['interrupted']))
-        {
-            $Block['element'] .= "\n";
-
-            unset($Block['interrupted']);
-        }
-
         $Block['element'] .= "\n".$Line['body'];
 
         return $Block;
@@ -1268,7 +1270,7 @@ class Parsedown
                 'name' => 'img',
                 'attributes' => array(
                     'alt' => $Link['text'],
-                    'src' => $url,
+                    'src' => $this->imagePath . $url,
                 ),
             );
         }
@@ -1435,3 +1437,5 @@ class Parsedown
                           'time',
     );
 }
+
+// end of file
